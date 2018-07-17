@@ -139,7 +139,8 @@ class WaypointCalculator(object):
             self.preceding_waypoint.acceleration = 0.0
         elif self.previous_first_idx != first_idx:
             # Copy the preceding waypoint before updating the waypoint list.
-            self.preceding_waypoint = self.waypoints[first_idx - self.previous_first_idx - 1]
+            self.preceding_waypoint = self.waypoints[(first_idx - self.previous_first_idx - 1) %
+                                                     len(self.base_waypoints_msg.waypoints)]
 
         self.waypoints = deepcopy(self.base_waypoints_msg.waypoints[first_idx:first_idx + LOOKAHEAD_WPS])
         self.previous_first_idx = first_idx
@@ -167,12 +168,16 @@ class WaypointCalculator(object):
             self.waypoints[idx].acceleration = acceleration
 
     def __calc_distances(self):
+<<<<<<< HEAD
         """Calculates the distances from the preceding waypoint to each of the waypoints in the path.
 
         Parameters
         ----------
         preceding_waypoint : The last visited waypoint behind the vehicle.
         """
+=======
+        """Calculates the distances from the preceding waypoint to each of the waypoints in the path."""
+>>>>>>> upstream/master
         total_dist = 0
         distances = []
 
@@ -219,6 +224,8 @@ class WaypointCalculator(object):
         """
         stop_idx += 1  # Offset for preceding waypoint
 
+        stop_idx += 1  # Offset for preceding waypoint
+
         # Calculate the reverse distances from the stop_idx and backwards.
         distances = [0.0] + self.__calc_distances()  # distance to preceding waypoint is 0
         distances = [distances[stop_idx] - distance for distance in distances]
@@ -231,9 +238,14 @@ class WaypointCalculator(object):
                      [get_waypoint_velocity(wp) for wp in self.waypoints]
             accs = [self.preceding_waypoint.acceleration] + \
                    [wp.acceleration for wp in self.waypoints]
+<<<<<<< HEAD
             
 
             # Set the speed and acceleration after the temp_stop_idx to zero.
+=======
+
+            # Set the speed and acceleration after the stop_idx to zero.
+>>>>>>> upstream/master
             speeds[stop_idx + 1:] = [0.0] * (len(speeds) - stop_idx - 1)
             accs[stop_idx + 1:] = [0.0] * (len(accs) - stop_idx - 1)
 
