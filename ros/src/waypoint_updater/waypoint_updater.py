@@ -182,16 +182,14 @@ class WaypointCalculator(object):
             self.waypoints[idx].acceleration = acceleration
 
     def __calc_distances(self):
-<<<<<<< HEAD
+
         """Calculates the distances from the preceding waypoint to each of the waypoints in the path.
 
         Parameters
         ----------
         preceding_waypoint : The last visited waypoint behind the vehicle.
         """
-=======
         """Calculates the distances from the preceding waypoint to each of the waypoints in the path."""
->>>>>>> upstream/master
         total_dist = 0
         distances = []
 
@@ -252,14 +250,11 @@ class WaypointCalculator(object):
                      [get_waypoint_velocity(wp) for wp in self.waypoints]
             accs = [self.preceding_waypoint.acceleration] + \
                    [wp.acceleration for wp in self.waypoints]
-<<<<<<< HEAD
             
 
             # Set the speed and acceleration after the temp_stop_idx to zero.
-=======
 
             # Set the speed and acceleration after the stop_idx to zero.
->>>>>>> upstream/master
             speeds[stop_idx + 1:] = [0.0] * (len(speeds) - stop_idx - 1)
             accs[stop_idx + 1:] = [0.0] * (len(accs) - stop_idx - 1)
 
